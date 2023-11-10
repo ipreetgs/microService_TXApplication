@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 
-{% block styles %}
-{{super()}}
-
-<style> .error-page { text-align: center; padding: 100px; } h1 { font-size: 100px; font-weight: bold; color: #007bff; } p { font-size: 20px; } ul { padding-left: 0; list-style-type: none; } li { padding: 10px 0; } a { color: #007bff; text-decoration: none; font-weight: bold; } a:hover { text-decoration: underline; } </style>
-{% endblock %}
-
 {% block app_content %}
-
-<div class="error-page"> <h1>Oops! Page Not Found</h1> <p>Sorry, but the page you were trying to view does not exist.</p> <p>It looks like this was the result of either:</p> <ul> <li>a mistyped address</li> <li>an out-of-date link</li> </ul> <p>Please try one of the following:</p> <ul> <li>Retrace your steps and try another link</li> <li>Use the search box to find what you're looking for</li> <li><a href="{{ url_for('main.index') }}">Return to the homepage</a></li> </ul> <p>If you continue to have trouble finding what you need, please contact us for help.</p> <p>We apologize for the inconvenience and hope you find what you're looking for!</p> </div>
+    <h1>{{ _('Not Found') }}</h1>
+    <p><a href="{{ url_for('main.index') }}">{{ _('Back') }}</a></p>
 {% endblock %}

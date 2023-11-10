@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  main-flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-main-app
+    ports:
+      - "8080:8080"
+    networks:
+      - my-network
+
+  flask-blog-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:5000"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

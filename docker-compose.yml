@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile-main-app
     ports:
-      - "8080:8080"
+      - "8090:8090"
     networks:
       - my-network
 

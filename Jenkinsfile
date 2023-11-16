@@ -1,34 +1,17 @@
-pipeline{
-    agent{
-        label "any"
-    }
-    stages{
-        stage("A"){
-            steps{
-                echo "========executing A========"
-            }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
+pipeline {
+    agent any
+
+    stages {
+        stage('Git checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ipreetgs/microService_TXApplication.git']])
             }
         }
-    }
-    post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
+        stage('docker-compose') {
+            steps {
+                echo 'Hi'
+                bat 'docker-compose up -d'
+            }
         }
     }
 }

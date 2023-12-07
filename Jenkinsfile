@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        scannerHome = tool 'sonar-scanner'
+        sonarqubeUrl = 'http://localhost:9000'  // Replace with your SonarQube server URL
+    }
+
+
     stages {
         stage('Git checkout') {
             steps {
@@ -14,12 +20,14 @@ pipeline {
             }
         }
         stage('SonarQube analysis') { 
-            steps { 
+            steps {
+                def scannerCmd = "${scannerHome}/bin/sonar-scanner"
                 withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube')
                 {
-                    sh '${SCANNER_HOME**}**}/bin/sonar-scanner \
-                    -Dsonar.projectKey=Demo \
-                    -Dsonar.host.url=http://localhost:9000/'
+                    sh "${scannerCmd} 
+                    -Dsonar.host.url=${sonarqubeUrl} 
+                    -Dsonar.projectKey=jenkins
+                    -Dsonar.sources=src"
                 }
           }   
         }

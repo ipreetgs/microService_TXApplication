@@ -22,7 +22,7 @@ pipeline {
                 {
                     sh './gradlew sonarqube \
                     -Dsonar.projectKey=Demo \
-                    -Dsonar.host.url=http://localhost:9000 \ 
+                    -Dsonar.host.url=http://localhost:9000
                 }
           }   
         }

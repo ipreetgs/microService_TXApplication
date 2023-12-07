@@ -21,10 +21,9 @@ pipeline {
         }
         stage('SonarQube analysis') { 
             steps {
-                def scannerCmd = "${scannerHome}/bin/sonar-scanner"
                 withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube')
                 {
-                    sh "${scannerCmd} \
+                    bat "${scannerHome}/bin/sonar-scanner \
                     -Dsonar.host.url=${sonarqubeUrl} \
                     -Dsonar.projectKey=jenkins \
                     -Dsonar.sources=src"

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        scannerHome = tool 'sonar-scanner'
+        scannerHome = tool 'sonarqube'
         sonarqubeUrl = 'http://localhost:9000'  // Replace with your SonarQube server URL
     }
 
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube')
                 {
-                    bat "${scannerHome}/bin/sonar-scanner \
+                    bat "${scannerHome}/bin/sonarqube \
                     -Dsonar.host.url=${sonarqubeUrl} \
                     -Dsonar.projectKey=jenkins \
                     -Dsonar.sources=src"

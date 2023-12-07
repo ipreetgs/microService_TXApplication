@@ -17,7 +17,7 @@ pipeline {
             steps { 
                 withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube')
                 {
-                    sh './gradlew sonarqube \
+                    sh '${SCANNER_HOME**}**}/bin/sonar-scanner \
                     -Dsonar.projectKey=Demo \
                     -Dsonar.host.url=http://localhost:9000/'
                 }

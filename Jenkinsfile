@@ -13,5 +13,18 @@ pipeline {
                 bat 'docker-compose up -d'
             }
         }
+        stage('SonarQube analysis') { 
+        		environment { 
+                	SCANNER_HOME = tool 'SonarQubeScanner' 
+            	} 
+            steps { 
+                withSonarQubeEnv(credentialsId: 'sonarqube')
+                {
+                    sh './gradlew sonarqube \
+                    -Dsonar.projectKey=Demo \
+                    -Dsonar.host.url=http://localhost:9000 \ 
+                }
+          }   
+        }
     }
 }

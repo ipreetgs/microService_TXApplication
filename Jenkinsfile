@@ -18,7 +18,7 @@ pipeline {
                 	SCANNER_HOME = tool 'SonarQubeScanner' 
             	} 
             steps { 
-                withSonarQubeEnv(credentialsId: 'sonarqube')
+                withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube')
                 {
                     sh './gradlew sonarqube \
                     -Dsonar.projectKey=Demo \

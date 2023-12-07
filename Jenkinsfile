@@ -26,7 +26,7 @@ pipeline {
                 {
                     bat "${scannerHome}/bin/sonar-scanner \
                     -Dsonar.host.url=${sonarqubeUrl} \
-                    -Dsonar.projectKey=jenkins 
+                    -Dsonar.projectKey=jenkins"
                     // -Dsonar.sources=src"
                 }
           }   

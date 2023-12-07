@@ -24,9 +24,9 @@ pipeline {
                 def scannerCmd = "${scannerHome}/bin/sonar-scanner"
                 withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube')
                 {
-                    sh "${scannerCmd} 
-                    -Dsonar.host.url=${sonarqubeUrl} 
-                    -Dsonar.projectKey=jenkins
+                    sh "${scannerCmd} \
+                    -Dsonar.host.url=${sonarqubeUrl} \
+                    -Dsonar.projectKey=jenkins \
                     -Dsonar.sources=src"
                 }
           }   

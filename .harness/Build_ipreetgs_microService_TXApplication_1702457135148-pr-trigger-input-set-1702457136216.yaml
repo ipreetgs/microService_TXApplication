@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_ipreetgs_microService_TXApplication_1702457135148-pr-trigger-input-set
+  identifier: Build_ipreetgs_microService_TXApplication_1702457135148prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_ipreetgs_microService_TXApplication_1702457135148
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>

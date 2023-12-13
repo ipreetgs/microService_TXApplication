@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_ipreetgs_microService_TXApplication_1702454265370-push-trigger-input-set
+  identifier: Build_ipreetgs_microService_TXApplication_1702454265370pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: DemoTx
+  pipeline:
+    identifier: Build_ipreetgs_microService_TXApplication_1702454265370
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>

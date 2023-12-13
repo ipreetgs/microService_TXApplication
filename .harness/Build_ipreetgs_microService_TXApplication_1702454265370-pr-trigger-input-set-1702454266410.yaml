@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_ipreetgs_microService_TXApplication_1702454265370-pr-trigger-input-set
+  identifier: Build_ipreetgs_microService_TXApplication_1702454265370prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: DemoTx
+  pipeline:
+    identifier: Build_ipreetgs_microService_TXApplication_1702454265370
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>

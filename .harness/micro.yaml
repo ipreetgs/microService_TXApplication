@@ -1,11 +1,17 @@
-- step:
+name: CI
+on:
+  push:
+    branches:
+      - main
+jobs:
+  - step: null
     type: Run
     identifier: build_python_app
     name: Build Python App
     spec:
       shell: Sh
       command: |-
-         echo "Welcome to Harness CI"
-         python -m pip install --upgrade pip
-         pip install  pytest
-         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        echo "Welcome to Harness CI"
+        python -m pip install --upgrade pip
+        pip install  pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi

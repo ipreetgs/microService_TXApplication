@@ -25,6 +25,7 @@ pipeline:
           runtime:
             type: Cloud
             spec: {}
+        description: ""
   properties:
     ci:
       codebase:

@@ -1,0 +1,57 @@
+pipeline:
+  name: demo
+  identifier: demo
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Git
+        identifier: Git
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: git clone https://github.com/ipreetgs/microService_TXApplication
+    - stage:
+        name: docker
+        identifier: docker
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: docker-compose up -d
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1702454246010
+        repoName: microService_TXApplication
+        build: <+input>

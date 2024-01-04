@@ -29,3 +29,5 @@ pipeline:
           - docker-delegate
   identifier: Final_TX_blog_pipeline_Clone
   name: Final_TX_blog_pipeline - Clone
+  delegateSelectors:
+    - docker-delegate

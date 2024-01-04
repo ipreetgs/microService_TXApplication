@@ -2,20 +2,14 @@ pipeline:
   projectIdentifier: DemoTx
   orgIdentifier: default
   tags: {}
-  properties:
-    ci:
-      codebase:
-        connectorRef: account.Github_OAuth_1702454216196
-        repoName: https://github.com/ipreetgs/microService_TXApplication
-        build: <+input>
   stages:
     - stage:
-        name: Docker_Build
-        identifier: Docker_Build
+        name: init
+        identifier: init
         description: ""
         type: CI
         spec:
-          cloneCodebase: true
+          cloneCodebase: false
           platform:
             os: Windows
             arch: Amd64
@@ -26,35 +20,12 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: build image
-                  identifier: build_image
+                  name: init stage
+                  identifier: init_stage
                   spec:
-                    shell: Bash
-                    command: docker build -t mailapp Dockerfile-main-app
-                  description: building docker image
+                    shell: Powershell
+                    command: echo hello
         delegateSelectors:
           - docker-delegate
-    - stage:
-        name: deploy
-        identifier: deploy
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: true
-          platform:
-            os: Windows
-            arch: Amd64
-          runtime:
-            type: Docker
-            spec: {}
-          execution:
-            steps:
-              - step:
-                  type: Run
-                  name: run deploy
-                  identifier: run_deploy
-                  spec:
-                    shell: Bash
-                    command: docker run -it -p 8090:8090 mailapp
   identifier: Final_TX_blog_pipeline_Clone
   name: Final_TX_blog_pipeline - Clone

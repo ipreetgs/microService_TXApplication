@@ -29,7 +29,7 @@ pipeline:
                   name: build image
                   identifier: build_image
                   spec:
-                    shell: Sh
+                    shell: Bash
                     command: docker build -t mailapp Dockerfile-main-app
                   description: building docker image
         delegateSelectors:
@@ -42,8 +42,8 @@ pipeline:
         spec:
           cloneCodebase: true
           platform:
-            os: Linux
-            arch: Arm64
+            os: Windows
+            arch: Amd64
           runtime:
             type: Docker
             spec: {}
@@ -54,7 +54,7 @@ pipeline:
                   name: run deploy
                   identifier: run_deploy
                   spec:
-                    shell: Sh
+                    shell: Bash
                     command: docker run -it -p 8090:8090 mailapp
   identifier: Final_TX_blog_pipeline_Clone
   name: Final_TX_blog_pipeline - Clone

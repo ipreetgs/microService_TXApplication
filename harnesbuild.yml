@@ -34,8 +34,6 @@ pipeline:
                     shell: Sh
                     command: docker build -t mailapp Dockerfile-main-app
                   description: building docker image
-        delegateSelectors:
-          - docker-delegate
     - stage:
         name: deploy
         identifier: deploy

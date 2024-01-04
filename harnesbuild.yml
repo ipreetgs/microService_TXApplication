@@ -34,12 +34,27 @@ pipeline:
                     shell: Sh
                     command: docker build -t mailapp Dockerfile-main-app
                   description: building docker image
+        delegateSelectors:
+          - docker-delegate
+    - stage:
+        name: deploy
+        identifier: deploy
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Arm64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
               - step:
                   type: Run
-                  name: run application
-                  identifier: run_application
+                  name: run deploy
+                  identifier: run_deploy
                   spec:
                     shell: Sh
                     command: docker run -it -p 8090:8090 mailapp
-        delegateSelectors:
-          - docker-delegate

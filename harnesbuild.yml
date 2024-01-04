@@ -1,0 +1,43 @@
+pipeline:
+  name: Final_TX_blog_pipeline
+  identifier: Final_TX_blog_pipeline
+  projectIdentifier: DemoTx
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1702454216196
+        repoName: https://github.com/ipreetgs/microService_TXApplication
+        build: <+input>
+  stages:
+    - stage:
+        name: Docker_Build
+        identifier: Docker_Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: build image
+                  identifier: build_image
+                  spec:
+                    shell: Sh
+                    command: docker build -t mailapp Dockerfile-main-app
+                  description: building docker image
+              - step:
+                  type: Run
+                  name: run application
+                  identifier: run_application
+                  spec:
+                    shell: Sh
+                    command: docker run -it -p 8090:8090 mailapp

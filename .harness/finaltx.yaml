@@ -44,3 +44,27 @@ pipeline:
                     command: docker build -t mailapp -f Dockerfile-main-app .
         delegateSelectors:
           - linux-docker-delegate
+    - stage:
+        name: deploy
+        identifier: deploy
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: deploy microservice
+                  identifier: deploy_microservice
+                  spec:
+                    shell: Sh
+                    command: docker run -it -p 8090:8090 mailapp
+        delegateSelectors:
+          - linux-docker-delegate

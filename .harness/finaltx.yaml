@@ -48,7 +48,7 @@ pipeline:
                   identifier: Run_3
                   spec:
                     shell: Sh
-                    command: docker run -it -p 8090:8090 mailapp
+                    command: docker run -d -p 8090:8090 mailapp
         delegateSelectors:
           - linux-docker-delegate
     - stage:

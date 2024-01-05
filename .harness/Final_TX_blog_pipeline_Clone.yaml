@@ -11,7 +11,7 @@ pipeline:
         spec:
           cloneCodebase: false
           platform:
-            os: Windows
+            os: Linux
             arch: Amd64
           runtime:
             type: Docker
@@ -23,10 +23,10 @@ pipeline:
                   name: init stage
                   identifier: init_stage
                   spec:
-                    shell: Powershell
+                    shell: Sh
                     command: echo hello
         delegateSelectors:
-          - docker-delegate
+          - linux-docker-delegate
   identifier: Final_TX_blog_pipeline_Clone
   name: Final_TX_blog_pipeline - Clone
   delegateSelectors:

@@ -1,76 +1,70 @@
----
 pipeline:
-  projectIdentifier: "DemoTx"
-  orgIdentifier: "default"
+  projectIdentifier: DemoTx
+  orgIdentifier: default
   tags: {}
   properties:
     ci:
       codebase:
-        connectorRef: "account.Github_OAuth_1702454216196"
-        repoName: "ipreetgs/microService_TXApplication"
-        build: "<+input>"
+        connectorRef: account.Github_OAuth_1702454216196
+        repoName: ipreetgs/microService_TXApplication
+        build: <+input>
   stages:
-  - stage:
-      name: "clone and build"
-      identifier: "clone_and_build"
-      description: ""
-      type: "CI"
-      spec:
-        cloneCodebase: true
-        platform:
-          os: "Linux"
-          arch: "Amd64"
-        runtime:
-          type: "Docker"
-          spec: {}
-        execution:
-          steps:
-          - step:
-              type: "Run"
-              name: "check"
-              identifier: "check"
-              spec:
-                shell: "Sh"
-                command: "pwd\nls"
-          - step:
-              type: "Run"
-              name: "build img"
-              identifier: "build_img"
-              spec:
-                shell: "Sh"
-                command: "docker build -t mailapp -f Dockerfile-main-app ."
-          - step:
-              type: "Run"
-              name: "Run_3"
-              identifier: "Run_3"
-              spec:
-                shell: "Sh"
-                command: "docker run -d -p 8090:8090 mailapp"
-      delegateSelectors:
-      - "linux-docker-delegate"
-  - stage:
-      name: "deploy"
-      identifier: "deploy"
-      description: ""
-      type: "CI"
-      spec:
-        cloneCodebase: false
-        platform:
-          os: "Linux"
-          arch: "Amd64"
-        runtime:
-          type: "Docker"
-          spec: {}
-        execution:
-          steps:
-          - step:
-              type: "Run"
-              name: "deploy microservice"
-              identifier: "deploy_microservice"
-              spec:
-                shell: "Sh"
-                command: "ls"
-      delegateSelectors:
-      - "linux-docker-delegate"
-  identifier: "finaltx_Clone"
-  name: "final-tx - Clone"
+    - stage:
+        name: clone and build
+        identifier: clone_and_build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: check
+                  identifier: check
+                  spec:
+                    shell: Sh
+                    command: |-
+                      pwd
+                      ls
+              - step:
+                  type: Run
+                  name: build img
+                  identifier: build_img
+                  spec:
+                    shell: Sh
+                    command: docker build -t mailapp -f Dockerfile-main-app .
+        delegateSelectors:
+          - linux-docker-delegate
+    - stage:
+        name: deploy
+        identifier: deploy
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: deploy microservice
+                  identifier: deploy_microservice
+                  spec:
+                    shell: Sh
+                    command: docker run -d -p 8090:8090 mailapp
+        delegateSelectors:
+          - linux-docker-delegate
+  identifier: finaltx_Clone
+  name: final-tx - Clone

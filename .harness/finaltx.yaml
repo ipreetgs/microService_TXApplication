@@ -41,6 +41,6 @@ pipeline:
                   identifier: build_img
                   spec:
                     shell: Sh
-                    command: docker build -t mailapp Dockerfile-main-app
+                    command: docker build -t mailapp -f Dockerfile-main-app .
         delegateSelectors:
           - linux-docker-delegate

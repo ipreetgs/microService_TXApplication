@@ -9,7 +9,7 @@ pipeline:
         description: ""
         type: CI
         spec:
-          cloneCodebase: false
+          cloneCodebase: true
           platform:
             os: Linux
             arch: Amd64
@@ -25,6 +25,9 @@ pipeline:
                   spec:
                     shell: Sh
                     command: docker build -t mailapp Dockerfile-main-app
+          caching:
+            enabled: false
+            paths: []
         delegateSelectors:
           - linux-docker-delegate
     - stage:
@@ -55,3 +58,9 @@ pipeline:
   name: Final_TX_blog_pipeline - Clone
   delegateSelectors:
     - docker-delegate
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1702454216196
+        repoName: https://github.com/ipreetgs/microService_TXApplication
+        build: <+input>

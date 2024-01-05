@@ -26,7 +26,7 @@ pipeline:
                     shell: Powershell
                     command: echo hello
         delegateSelectors:
-          - windows-amd64
+          - docker-delegate
   identifier: Final_TX_blog_pipeline_Clone
   name: Final_TX_blog_pipeline - Clone
   delegateSelectors:

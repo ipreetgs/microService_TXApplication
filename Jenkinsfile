@@ -7,7 +7,7 @@ pipeline {
         JAVA_HOME = "${tool 'java'}"
         APPD_ACCOUNT = credentials('AppDynamicsAAC')
         APPD_ACCESSKEY = credentials('AppDynamicsSEC')
-	 WEBSITES = 'http://192.168.6.118:8090/,http://192.168.6.118:8000/'
+	WEBSITES = 'http://192.168.6.118:8090/,http://192.168.6.118:8000/'
         // APPD_ACCOUNT = 'credentials(AppDynamics).username'
         // APPD_ACCESSKEY = 'credentials(AppDynamics).password'
         
@@ -60,9 +60,6 @@ pipeline {
         }
     	stage('Scan Docker Image') {
             steps {
-                // Install Trivy
-                sh "curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin ${TRIVY_VERSION}"
-
                 // Scan Docker image
                 sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template '@html.tpl' -o reports/docker-image-scan.html tx-blog-app-main-flask-app:latest"
                 publishHTML target: [

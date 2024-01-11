@@ -75,15 +75,15 @@ pipeline {
                 // Fail the build on CRITICAL vulnerabilities
                 sh "trivy image --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL tx-blog-app-main-flask-app:latest"
 		// scan img2
-		sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template '@html.tpl' -o reports/docker-image-scan.html flask-blog-app:latest"
+		sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template '@html.tpl' -o reports/docker-image-scan1.html flask-blog-app:latest"
                 publishHTML target: [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
                     reportDir: 'reports',
-                    reportFiles: 'docker-image-scan.html',
-                    reportName: 'Docker Image Scan',
-                    reportTitles: 'Docker Image Scan'
+                    reportFiles: 'docker-image-scan1.html',
+                    reportName: 'Docker Image Scan blog',
+                    reportTitles: 'Docker Image Scan blog app'
                 ]
 
                 // Fail the build on CRITICAL vulnerabilities

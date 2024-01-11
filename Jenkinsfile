@@ -136,6 +136,7 @@ pipeline {
                     waitUntil { sh(script: 'curl -s http://localhost:5555/JSON/core/view/version/ | grep -q "Version"', returnStatus: true) == 0 }
 
                     // Run ZAP Spider and Active Scan
+		    def websites = env.WEBSITES.split(',')
 		    for (website in env.WEBSITES) {
                         echo "Scanning website: $website"
 

@@ -9,7 +9,7 @@ def home():
 @app.route('/blog')
 def blog():
     # Redirect to the Flask blog app running in another container
-    return redirect('http://localhost:8000') 
+    return redirect('http://192.168.6.118:8000') 
 @app.route('/about')
 def about():
     return render_template('about.html')

@@ -9,7 +9,9 @@ COPY . /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r main-requirements.txt
-
+RUN pip install appdynamics
+RUN pip install pyagent
+COPY appdynamics.cfg /etc/appdynamics.cfg
 # Make port 8080 available to the world outside this container
 EXPOSE 8090
 
@@ -17,4 +19,5 @@ EXPOSE 8090
 ENV NAME World
 
 # Run app.py when the container launches
-CMD ["python", "main.py"]
+CMD pyagent run -c /etc/appdynamics.cfg -- flask run --host 0.0.0.0 --port 8090
+#CMD ["python", "main.py"]

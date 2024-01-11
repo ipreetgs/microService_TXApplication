@@ -8,6 +8,7 @@ pipeline {
         APPD_ACCOUNT = credentials('AppDynamicsAAC')
         APPD_ACCESSKEY = credentials('AppDynamicsSEC')
         TRIVY_VERSION = 'v0.18.3'
+	 WEBSITES = ['http://192.168.6.118:8090/','http://192.168.6.118:8000/']
         // APPD_ACCOUNT = 'credentials(AppDynamics).username'
         // APPD_ACCESSKEY = 'credentials(AppDynamics).password'
         
@@ -123,6 +124,47 @@ pipeline {
 	stage('ZAP VAPT') {
             steps {
                 sh 'echo hello'
+            }
+        }
+	stage('Run ZAP Scan') {
+            steps {
+                script {
+                    // Start ZAP in daemon mode
+                    sh 'zap.sh -daemon -host 0.0.0.0 -port 5555 -config api.disablekey=true'
+
+                    // Wait for ZAP to start
+                    waitUntil { sh(script: 'curl -s http://localhost:5555/JSON/core/view/version/ | grep -q "Version"', returnStatus: true) == 0 }
+
+                    // Run ZAP Spider and Active Scan
+		    for (website in env.WEBSITES) {
+                        echo "Scanning website: $website"
+
+                        // Run ZAP Spider and Active Scan
+                        sh "curl -X POST http://localhost:5555/JSON/spider/action/scan/ -d \"url=$website\""
+                        sh "curl -X POST http://localhost:5555/JSON/ascan/action/scan/ -d \"url=$website\""
+
+                        // Wait for scans to complete
+                        waitUntil { sh(script: 'curl -s http://localhost:5555/JSON/spider/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
+                        waitUntil { sh(script: 'curl -s http://localhost:5555/JSON/ascan/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
+
+                        // Generate ZAP report for each website
+                        sh "curl -o zap-report-$website.html http://localhost:5555/OTHER/core/other/htmlreport/"
+                    }
+                }
+            }
+        }
+
+        stage('Publish ZAP Report') {
+            steps {
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'zap-report.html',
+                    reportName: 'ZAP Report',
+                    reportTitles: 'ZAP Report'
+                ])
             }
         }
     }

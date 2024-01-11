@@ -5,6 +5,9 @@ pipeline {
         scannerHome = tool 'sonar-scanner'
         sonarqubeUrl = 'http://192.168.6.118:9000'  // Replace with your SonarQube server URL
         JAVA_HOME = "${tool 'java'}"
+        APPD_ACCOUNT = credentials('AppDynamics').username
+        APPD_ACCESSKEY = credentials('AppDynamics').password
+        
     }
 
 
@@ -26,11 +29,13 @@ pipeline {
                 }
           }   
         }
-        // stage('docker-compose') {
-        //     steps {
-        //         echo 'Hi'
+        stage('docker-compose') {
+            steps {
+                echo 'Hi'
+                 echo "Account: ${APPD_ACCOUNT}"
+                echo "Access Key: ${APPD_ACCESSKEY}"
         //         bat 'docker-compose up -d'
-        //     }
-        // }
+            }
+        }
     }
 }

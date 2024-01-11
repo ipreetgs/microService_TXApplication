@@ -74,8 +74,8 @@ pipeline {
     	stage('Scan Docker Image') {
             steps {
                 // Scan Docker image
-                sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template '@html.tpl' -o reports/docker-image-scan.html --timeout 30m tx-blog-app-main-flask-app:latest"
-                publishHTML target: [
+                sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template table -o reports/docker-image-scan.html --timeout 30m tx-blog-app-main-flask-app:latest"
+		    publishHTML target: [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
@@ -88,7 +88,7 @@ pipeline {
                 // Fail the build on CRITICAL vulnerabilities
                 sh "trivy image --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL tx-blog-app-main-flask-app:latest"
 		// scan img2
-		sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template '@html.tpl' -o reports/docker-image-scan1.html --timeout 30m flask-blog-app:latest"
+		sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template table -o reports/docker-image-scan1.html --timeout 30m flask-blog-app:latest"
                 publishHTML target: [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
@@ -107,7 +107,7 @@ pipeline {
         stage('Scan Python Code') {
             steps {
                 // Scan Python code
-                sh "trivy filesystem --ignore-unfixed --vuln-type os,library --format template --template '@html.tpl' -o reports/python-code-scan.html ."
+                sh "trivy filesystem --ignore-unfixed --vuln-type os,library --format template --template table -o reports/python-code-scan.html ."
                 publishHTML target: [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,

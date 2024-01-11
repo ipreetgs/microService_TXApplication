@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         scannerHome = tool 'sonar-scanner'
-        sonarqubeUrl = 'http://localhost:9000'  // Replace with your SonarQube server URL
+        sonarqubeUrl = 'http://192.168.6.118:9000'  // Replace with your SonarQube server URL
         JAVA_HOME = "${tool 'java'}"
     }
 

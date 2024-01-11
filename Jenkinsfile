@@ -32,6 +32,11 @@ pipeline {
                 }
           }   
         }
+	stage('Bearer Code Scaning') {
+            steps {
+                sh 'bearer scan .'
+            }
+        }
         stage('Prepare Config AppDynamics') {
             steps {
                 script {

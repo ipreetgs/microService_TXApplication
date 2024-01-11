@@ -41,8 +41,8 @@ pipeline {
                     sh 'sed -i "s|accesskey = |accesskey = ${APPD_ACCESSKEY}|g" appdynamics1.cfg'
 
                     // Copy appdynamics.cfg to the build context
-                    sh 'cp appdynamics.cfg ./'
-                    sh 'cp appdynamics1.cfg ./'
+                    // sh 'cp appdynamics.cfg ./'
+                    // sh 'cp appdynamics1.cfg ./'
                 }
             }
         }

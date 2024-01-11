@@ -5,8 +5,8 @@ pipeline {
         scannerHome = tool 'sonar-scanner'
         sonarqubeUrl = 'http://192.168.6.118:9000'  // Replace with your SonarQube server URL
         JAVA_HOME = "${tool 'java'}"
-        APPD_ACCOUNT = credentials('AppDynamics').username
-        APPD_ACCESSKEY = credentials('AppDynamics').password
+        APPD_ACCOUNT = 'credentials('AppDynamics').username'
+        APPD_ACCESSKEY = 'credentials('AppDynamics').password'
         
     }
 

@@ -34,7 +34,16 @@ pipeline {
         }
 	stage('Bearer Code Scaning') {
             steps {
-                sh 'bearer scan .'
+                sh 'bearer scan . --format=html --output=reports/bearer-scan-report.html'
+		publishHTML target: [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'bearer-scan-report.html',
+                    reportName: 'Bearer Scan',
+                    reportTitles: 'Bearer Scan'
+                ]
             }
         }
         stage('Prepare Config AppDynamics') {

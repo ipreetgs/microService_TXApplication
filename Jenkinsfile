@@ -18,18 +18,19 @@ pipeline {
             steps {
                 withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube')
                 {
-                    bat "${scannerHome}/bin/sonar-scanner \
+                    // bat "${scannerHome}/bin/sonar-scanner \
+                    sh "${scannerHome}/bin/sonar-scanner \
                     -Dsonar.host.url=${sonarqubeUrl} \
                     -Dsonar.projectKey=jenkins"
                     // -Dsonar.sources=src"
                 }
           }   
         }
-        stage('docker-compose') {
-            steps {
-                echo 'Hi'
-                bat 'docker-compose up -d'
-            }
-        }
+        // stage('docker-compose') {
+        //     steps {
+        //         echo 'Hi'
+        //         bat 'docker-compose up -d'
+        //     }
+        // }
     }
 }

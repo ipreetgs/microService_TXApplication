@@ -16,7 +16,7 @@ COPY appdynamics.cfg /etc/appdynamics.cfg
 EXPOSE 8090
 
 # Define environment variable
-ENV NAME World
+ENV NAME main
 
 # Run app.py when the container launches
 #CMD pyagent run -c /etc/appdynamics.cfg -- flask run --host 0.0.0.0 --port 8090

@@ -115,5 +115,15 @@ pipeline {
                 sh "trivy filesystem --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL ."
             }
         }
+	stage('Nikto VAPT') {
+            steps {
+                sh 'nikto -h 192.168.6.118 -p 80,88,443,9090,9000,8080,8000'
+            }
+        }
+	stage('ZAP VAPT') {
+            steps {
+                sh 'echo hello'
+            }
+        }
     }
 }

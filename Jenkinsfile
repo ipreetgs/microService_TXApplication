@@ -49,7 +49,7 @@ pipeline {
         stage('docker-compose') {
             steps {
                 echo 'Hi'
-        //         bat 'docker-compose up -d'
+                sh 'docker-compose up -d'
             }
         }
     }

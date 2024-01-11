@@ -7,7 +7,6 @@ pipeline {
         JAVA_HOME = "${tool 'java'}"
         APPD_ACCOUNT = credentials('AppDynamicsAAC')
         APPD_ACCESSKEY = credentials('AppDynamicsSEC')
-        TRIVY_VERSION = 'v0.18.3'
 	 WEBSITES = 'http://192.168.6.118:8090/,http://192.168.6.118:8000/'
         // APPD_ACCOUNT = 'credentials(AppDynamics).username'
         // APPD_ACCESSKEY = 'credentials(AppDynamics).password'
@@ -97,9 +96,6 @@ pipeline {
 
         stage('Scan Python Code') {
             steps {
-                // Install Trivy
-                sh "curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin ${TRIVY_VERSION}"
-
                 // Scan Python code
                 sh "trivy filesystem --ignore-unfixed --vuln-type os,library --format template --template '@html.tpl' -o reports/python-code-scan.html ."
                 publishHTML target: [

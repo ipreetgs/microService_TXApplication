@@ -8,7 +8,7 @@ pipeline {
         APPD_ACCOUNT = credentials('AppDynamicsAAC')
         APPD_ACCESSKEY = credentials('AppDynamicsSEC')
         TRIVY_VERSION = 'v0.18.3'
-	 WEBSITES = ['http://192.168.6.118:8090/','http://192.168.6.118:8000/']
+	 WEBSITES = ["http://192.168.6.118:8090/","http://192.168.6.118:8000/"]
         // APPD_ACCOUNT = 'credentials(AppDynamics).username'
         // APPD_ACCESSKEY = 'credentials(AppDynamics).password'
         

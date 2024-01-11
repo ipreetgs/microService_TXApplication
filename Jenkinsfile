@@ -31,11 +31,24 @@ pipeline {
                 }
           }   
         }
+        stage('Prepare Config AppDynamics') {
+            steps {
+                script {
+                    // Replace placeholders in appdynamics.cfg
+                    sh 'sed -i "s|account = |account = ${APPD_ACCOUNT}|g" appdynamics.cfg'
+                    sh 'sed -i "s|accesskey = |accesskey = ${APPD_ACCESSKEY}|g" appdynamics.cfg'
+                    sh 'sed -i "s|account = |account = ${APPD_ACCOUNT}|g" appdynamics1.cfg'
+                    sh 'sed -i "s|accesskey = |accesskey = ${APPD_ACCESSKEY}|g" appdynamics1.cfg'
+
+                    // Copy appdynamics.cfg to the build context
+                    sh 'cp appdynamics.cfg ./'
+                    sh 'cp appdynamics1.cfg ./'
+                }
+            }
+        }
         stage('docker-compose') {
             steps {
                 echo 'Hi'
-                 echo "Account: ${APPD_ACCOUNT}"
-                echo "Access Key: ${APPD_ACCESSKEY}"
         //         bat 'docker-compose up -d'
             }
         }

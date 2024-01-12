@@ -135,8 +135,8 @@ pipeline {
             steps {
 		    sh 'docker tag $Image1 $DOCKER_IMAGE_NAME'
 		    sh 'docker tag $Image2 $DOCKER_IMAGE_NAME2'
-		    jf 'docker push $Image1'
-		    jf 'docker push $Image2'
+		    jf 'docker push $DOCKER_IMAGE_NAME'
+		    jf 'docker push $DOCKER_IMAGE_NAME2'
 	    	   // sh "jfrog rt docker-push ${Image1} --url=${JFROG_ARTIFACTORY_URL} --build-name=main-build --build-number=1"
 	    	   // sh "jfrog rt docker-push ${Image2} --url=${JFROG_ARTIFACTORY_URL} --build-name=blog-build --build-number=1"
             }

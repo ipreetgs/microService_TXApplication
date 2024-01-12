@@ -136,10 +136,10 @@ pipeline {
             steps {
                 script {
                     // Start ZAP in daemon mode
-                    sh 'zap.sh -daemon -host 192.168.6.118 -port 5555 -config api.disablekey=true'
+                    sh 'zap.sh -daemon -host 192.168.6.118 -port 8092 -config api.disablekey=true'
 
                     // Wait for ZAP to start
-                    waitUntil { sh(script: 'curl -s http://192.168.6.118:5555/JSON/core/view/version/ | grep -q "Version"', returnStatus: true) == 0 }
+                    waitUntil { sh(script: 'curl -s http://192.168.6.118:8092/JSON/core/view/version/ | grep -q "Version"', returnStatus: true) == 0 }
 
                     // Run ZAP Spider and Active Scan
 		    def websites = env.WEBSITES.split(',')
@@ -147,15 +147,15 @@ pipeline {
                         echo "Scanning website: $website"
 
                         // Run ZAP Spider and Active Scan
-                        sh "curl -X POST http://192.168.6.118:5555/JSON/spider/action/scan/ -d \"url=$website\""
-                        sh "curl -X POST http://192.168.6.118:5555/JSON/ascan/action/scan/ -d \"url=$website\""
+                        sh "curl -X POST http://192.168.6.118:8092/JSON/spider/action/scan/ -d \"url=$website\""
+                        sh "curl -X POST http://192.168.6.118:8092/JSON/ascan/action/scan/ -d \"url=$website\""
 
                         // Wait for scans to complete
-                        waitUntil { sh(script: 'curl -s http://192.168.6.118:5555/JSON/spider/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
-                        waitUntil { sh(script: 'curl -s http://192.168.6.118:5555/JSON/ascan/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
+                        waitUntil { sh(script: 'curl -s http://192.168.6.118:8092/JSON/spider/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
+                        waitUntil { sh(script: 'curl -s http://192.168.6.118:8092/JSON/ascan/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
 
                         // Generate ZAP report for each website
-                        sh "curl -o zap-report-$website.html http://192.168.6.118:5555/OTHER/core/other/htmlreport/"
+                        sh "curl -o zap-report-$website.html http://192.168.6.118:8092/OTHER/core/other/htmlreport/"
                     }
                 }
             }

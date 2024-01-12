@@ -180,39 +180,39 @@ pipeline {
  //                }
  //            }
  //        }
-        stage('Start ZAP') {
-            steps {
-                script {
-                    // Start ZAP as a daemon
-                    sh 'zap.sh -daemon -host 127.0.0.1 -port 8092 -config api.disablekey=true'
-                }
-            }
-        }
+ //        stage('Start ZAP') {
+ //            steps {
+ //                script {
+ //                    // Start ZAP as a daemon
+ //                    sh 'zap.sh -daemon -host 127.0.0.1 -port 8092 -config api.disablekey=true'
+ //                }
+ //            }
+ //        }
 
-     //    stage('Run ZAP Scan') {
-     //        steps {
-     //            script {
-     //                // Perform ZAP spidering and scanning
-     //                sh 'zap-cli -p 8092 -config api.key="" --verbose quick-scan -o /reports/zap-report.html -u http://192.168.6.118:8000'
-     //            }
-     //        }
-     //    }
+ //        stage('Run ZAP Scan') {
+ //            steps {
+ //                script {
+ //                    // Perform ZAP spidering and scanning
+ //                    sh 'zap-cli -p 8092 -config api.key="" --verbose quick-scan -o /reports/zap-report.html -u http://192.168.6.118:8000'
+ //                }
+ //            }
+ //        }
 
-     //    stage('Shutdown ZAP') {
-     //        steps {
-     //            script {
-     //                // Shutdown ZAP after the scan is complete
-     //                sh 'zap-cli -p 8092 --verbose shutdown'
-     //            }
-     //        }
-     //    }
+ //        stage('Shutdown ZAP') {
+ //            steps {
+ //                script {
+ //                    // Shutdown ZAP after the scan is complete
+ //                    sh 'zap-cli -p 8092 --verbose shutdown'
+ //                }
+ //            }
+ //        }
 
-	    // post {
-	    //     always {
-	    //         // Archive ZAP scan reports as artifacts
-	    //         archiveArtifacts 'reports/zap-report.html'
-	    //     }
-	    // }
+	//     post {
+	//         always {
+	//             // Archive ZAP scan reports as artifacts
+	//             archiveArtifacts 'reports/zap-report.html'
+	//         }
+	//     }
 
 
         stage('Publish ZAP Report') {

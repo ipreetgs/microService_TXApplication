@@ -13,6 +13,9 @@ pipeline {
 	WEBSITES = 'http://192.168.6.118:8090/,http://192.168.6.118:8000/'
         // APPD_ACCOUNT = 'credentials(AppDynamics).username'
         // APPD_ACCESSKEY = 'credentials(AppDynamics).password'
+	JFROG_ARTIFACTORY_URL = "https://gurpreetgs.jfrog.io/artifactory/"
+	Image1 = "tx-blog-app-main-flask-app:latest"
+        Image2 = "tx-blog-app-flask-blog-app:latest"
 	DOCKER_IMAGE_NAME = "gurpreetgs.jfrog.io/docker-local/hello-frog:1.0.0"
         
     }
@@ -128,6 +131,8 @@ pipeline {
 	// stage('Publist art. Jfrog') {
  //            steps {
  //                sh 'echo hello'
+	    	   sh "jfrog rt docker-push ${Image1} --url=${JFROG_ARTIFACTORY_URL} --build-name=main-build --build-number=1"
+	    	   sh "jfrog rt docker-push ${Image2} --url=${JFROG_ARTIFACTORY_URL} --build-name=blog-build --build-number=1"
  //            }
  //        }
 	stage('Nikto VAPT') {

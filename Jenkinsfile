@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+		jfrog 'jfrog-cli'
+	}
 
     environment {
         scannerHome = tool 'sonar-scanner'
@@ -128,10 +131,17 @@ pipeline {
 	stage('Publist art. Jfrog') {
             steps {
                 sh 'echo hello'
-	    	   sh "jfrog rt docker-push ${Image1} --url=${JFROG_ARTIFACTORY_URL} --build-name=main-build --build-number=1"
-	    	   sh "jfrog rt docker-push ${Image2} --url=${JFROG_ARTIFACTORY_URL} --build-name=blog-build --build-number=1"
+		    jf 'docker push $Image1'
+		    jf 'docker push $Image2'
+	    	   // sh "jfrog rt docker-push ${Image1} --url=${JFROG_ARTIFACTORY_URL} --build-name=main-build --build-number=1"
+	    	   // sh "jfrog rt docker-push ${Image2} --url=${JFROG_ARTIFACTORY_URL} --build-name=blog-build --build-number=1"
             }
         }
+	stage('Publish build info') {
+			steps {
+				jf 'rt build-publish'
+			}
+		}
 	stage('Nikto VAPT') {
             steps {
                 sh 'nikto -h 192.168.6.118 -p 80,88,443,9090,9000,8080,8000'

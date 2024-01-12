@@ -16,9 +16,8 @@ pipeline {
 	JFROG_ARTIFACTORY_URL = "https://gurpreetgs.jfrog.io/artifactory/tx-demo-docker/"
 	Image1 = "tx-blog-app-main-flask-app:latest"
         Image2 = "tx-blog-app-flask-blog-app:latest"
-	DOCKER_IMAGE_NAME = "gurpreetgs.jfrog.io/docker-local/tx-blog-app-main-flask-app:latest"
-	DOCKER_IMAGE_NAME2 = "gurpreetgs.jfrog.io/docker-local/tx-blog-app-main-flask-app:latest"
-	
+	DOCKER_IMAGE_NAME = "gurpreetgs.jfrog.io/docker-local-1/tx-blog-app-main-flask-app:latest"
+	DOCKER_IMAGE_NAME2 = "gurpreetgs.jfrog.io/docker-local/tx-blog-app-flask-blog-app:latest"
 	
         
     }

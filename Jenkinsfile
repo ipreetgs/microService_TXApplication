@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-		jfrog 'jfrog-cli'
-	}
 
     environment {
         scannerHome = tool 'sonar-scanner'
@@ -128,13 +125,13 @@ pipeline {
                 sh "trivy image --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL tx-blog-app-flask-blog-app:latest"
             }
         }
-	// stage('Publist art. Jfrog') {
- //            steps {
- //                sh 'echo hello'
+	stage('Publist art. Jfrog') {
+            steps {
+                sh 'echo hello'
 	    	   sh "jfrog rt docker-push ${Image1} --url=${JFROG_ARTIFACTORY_URL} --build-name=main-build --build-number=1"
 	    	   sh "jfrog rt docker-push ${Image2} --url=${JFROG_ARTIFACTORY_URL} --build-name=blog-build --build-number=1"
- //            }
- //        }
+            }
+        }
 	stage('Nikto VAPT') {
             steps {
                 sh 'nikto -h 192.168.6.118 -p 80,88,443,9090,9000,8080,8000'

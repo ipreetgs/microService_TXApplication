@@ -13,10 +13,13 @@ pipeline {
 	WEBSITES = 'http://192.168.6.118:8090/,http://192.168.6.118:8000/'
         // APPD_ACCOUNT = 'credentials(AppDynamics).username'
         // APPD_ACCESSKEY = 'credentials(AppDynamics).password'
-	JFROG_ARTIFACTORY_URL = "https://gurpreetgs.jfrog.io/artifactory/"
+	JFROG_ARTIFACTORY_URL = "https://gurpreetgs.jfrog.io/artifactory/tx-demo-docker/"
 	Image1 = "tx-blog-app-main-flask-app:latest"
         Image2 = "tx-blog-app-flask-blog-app:latest"
-	DOCKER_IMAGE_NAME = "gurpreetgs.jfrog.io/docker-local/hello-frog:1.0.0"
+	DOCKER_IMAGE_NAME = "gurpreetgs.jfrog.io/docker-local/tx-blog-app-main-flask-app:latest"
+	DOCKER_IMAGE_NAME2 = "gurpreetgs.jfrog.io/docker-local/tx-blog-app-main-flask-app:latest"
+	
+	
         
     }
 
@@ -130,7 +133,8 @@ pipeline {
         }
 	stage('Publist art. Jfrog') {
             steps {
-                sh 'echo hello'
+		    sh 'docker tag $Image1 $DOCKER_IMAGE_NAME'
+		    sh 'docker tag $Image2 $DOCKER_IMAGE_NAME2'
 		    jf 'docker push $Image1'
 		    jf 'docker push $Image2'
 	    	   // sh "jfrog rt docker-push ${Image1} --url=${JFROG_ARTIFACTORY_URL} --build-name=main-build --build-number=1"

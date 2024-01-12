@@ -50,6 +50,24 @@ pipeline {
             ]
         }
     }
+	stage('Scan Python Code') {
+            steps {
+                // Scan Python code
+                sh "trivy filesystem --ignore-unfixed --vuln-type os,library --format template --template table -o reports/python-code-scan.html ."
+                publishHTML target: [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'python-code-scan.html',
+                    reportName: 'Python Code Scan',
+                    reportTitles: 'Python Code Scan'
+                ]
+
+                // Fail the build on CRITICAL vulnerabilities
+                sh "trivy filesystem --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL ."
+            }
+        }
         stage('Prepare Config AppDynamics') {
             steps {
                 script {
@@ -103,35 +121,22 @@ pipeline {
                 sh "trivy image --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL tx-blog-app-flask-blog-app:latest"
             }
         }
-
-        stage('Scan Python Code') {
-            steps {
-                // Scan Python code
-                sh "trivy filesystem --ignore-unfixed --vuln-type os,library --format template --template table -o reports/python-code-scan.html ."
-                publishHTML target: [
-                    allowMissing: true,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'reports',
-                    reportFiles: 'python-code-scan.html',
-                    reportName: 'Python Code Scan',
-                    reportTitles: 'Python Code Scan'
-                ]
-
-                // Fail the build on CRITICAL vulnerabilities
-                sh "trivy filesystem --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL ."
-            }
-        }
+	// stage('Publist art. Dockerhub') {
+ //            steps {
+ //                sh 'echo hello'
+ //            }
+ //        }
 	stage('Nikto VAPT') {
             steps {
                 sh 'nikto -h 192.168.6.118 -p 80,88,443,9090,9000,8080,8000'
             }
         }
-	stage('ZAP VAPT') {
-            steps {
-                sh 'echo hello'
-            }
-        }
+	// stage('ZAP VAPT') {
+ //            steps {
+ //                sh 'echo hello'
+ //            }
+ //        }
+
 	// stage('Run ZAP Scan') {
  //            steps {
  //                script {

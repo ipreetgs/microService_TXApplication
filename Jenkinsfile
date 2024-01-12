@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+		jfrog 'jfrog-cli'
+	}
 
     environment {
         scannerHome = tool 'sonar-scanner'
@@ -10,6 +13,7 @@ pipeline {
 	WEBSITES = 'http://192.168.6.118:8090/,http://192.168.6.118:8000/'
         // APPD_ACCOUNT = 'credentials(AppDynamics).username'
         // APPD_ACCESSKEY = 'credentials(AppDynamics).password'
+	DOCKER_IMAGE_NAME = "gurpreetgs.jfrog.io/docker-local/hello-frog:1.0.0"
         
     }
 
@@ -121,7 +125,7 @@ pipeline {
                 sh "trivy image --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL tx-blog-app-flask-blog-app:latest"
             }
         }
-	// stage('Publist art. Dockerhub') {
+	// stage('Publist art. Jfrog') {
  //            steps {
  //                sh 'echo hello'
  //            }

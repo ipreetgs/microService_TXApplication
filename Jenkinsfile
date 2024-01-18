@@ -168,6 +168,20 @@ pipeline {
 				jf 'rt build-publish'
 			}
 		}
+	stage('DAST Approval') {
+            steps {
+                script {
+                    // Send email for manual approval
+                    emailext subject: 'Manual Approval Required',
+                              body: 'Please approve the DAST by clicking on the following link: ${BUILD_URL}input',
+                              to: 'ipreetgs@gmail.com',
+                              mimeType: 'text/html'
+                    
+                    // Pause and wait for manual approval
+                    input(id:'Proceed1', message: 'Promote build?',parameters:[[$class:'BooleanParameterDefinition', defaultValue: true, name: 'Please approve the dast in your email client.', submitter: 'ipreetgs@gmail.com']])
+                }
+            }
+        }
 	stage('Nikto VAPT') {
             steps {
                 sh 'nikto -h 192.168.6.118 -p 8080,8000,8090'

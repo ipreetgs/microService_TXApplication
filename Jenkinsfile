@@ -92,7 +92,7 @@ pipeline {
                 }
             }
         }
-        stage('docker-compose') {
+        stage('Deployment') {
             steps {
                 echo 'Hi'
                 sh 'docker-compose up -d'
@@ -150,69 +150,6 @@ pipeline {
                 sh 'nikto -h 192.168.6.118 -p 80,88,443,9090,9000,8080,8000'
             }
         }
-	// stage('ZAP VAPT') {
- //            steps {
- //                sh 'echo hello'
- //            }
- //        }
-
-	// stage('Run ZAP Scan') {
- //            steps {
- //                script {
- //                    // Start ZAP in daemon mode
- //                    sh 'zap.sh -daemon -host 192.168.6.118 -port 8092 -config api.disablekey=true'
- //                    // Wait for ZAP to start
- //                    waitUntil { sh(script: 'curl -s http://192.168.6.118:8092/JSON/core/view/version/ | grep -q "Version"', returnStatus: true) == 0 }
- //                    // Run ZAP Spider and Active Scan
-	// 	    def websites = env.WEBSITES.split(',')
-	// 	    for (website in env.WEBSITES) {
- //                        echo "Scanning website: $website"
- //                        // Run ZAP Spider and Active Scan
- //                        sh "curl -X POST http://192.168.6.118:8092/JSON/spider/action/scan/ -d \"url=$website\""
- //                        sh "curl -X POST http://192.168.6.118:8092/JSON/ascan/action/scan/ -d \"url=$website\""
- //                        // Wait for scans to complete
- //                        waitUntil { sh(script: 'curl -s http://192.168.6.118:8092/JSON/spider/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
- //                        waitUntil { sh(script: 'curl -s http://192.168.6.118:8092/JSON/ascan/view/status/ | grep -q "\"status\":\"100\""', returnStatus: true) == 0 }
- //                        // Generate ZAP report for each website
- //                        sh "curl -o zap-report-$website.html http://192.168.6.118:8092/OTHER/core/other/htmlreport/"
- //                    }
- //                }
- //            }
- //        }
- //        stage('Start ZAP') {
- //            steps {
- //                script {
- //                    // Start ZAP as a daemon
- //                    sh 'zap.sh -daemon -host 127.0.0.1 -port 8092 -config api.disablekey=true'
- //                }
- //            }
- //        }
-
- //        stage('Run ZAP Scan') {
- //            steps {
- //                script {
- //                    // Perform ZAP spidering and scanning
- //                    sh 'zap-cli -p 8092 -config api.key="" --verbose quick-scan -o /reports/zap-report.html -u http://192.168.6.118:8000'
- //                }
- //            }
- //        }
-
- //        stage('Shutdown ZAP') {
- //            steps {
- //                script {
- //                    // Shutdown ZAP after the scan is complete
- //                    sh 'zap-cli -p 8092 --verbose shutdown'
- //                }
- //            }
- //        }
-
-	//     post {
-	//         always {
-	//             // Archive ZAP scan reports as artifacts
-	//             archiveArtifacts 'reports/zap-report.html'
-	//         }
-	//     }
-
 
         stage('Publish ZAP Report') {
             steps {

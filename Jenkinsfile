@@ -101,7 +101,7 @@ pipeline {
  //                    }        
  //                } 
  //        }
-	stage('Manual Approval2') {
+	stage('Manual Approval for deployment') {
             steps {
                 script {
                     // Send email for manual approval

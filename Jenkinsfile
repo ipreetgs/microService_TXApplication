@@ -173,7 +173,7 @@ pipeline {
                 sh 'nikto -h 192.168.6.118 -p 8080,8000,8090'
             }
         }
-	stage('Nikto VAPT') {
+	stage('OWSP ZAP VAPT') {
             steps {
                 sh 'docker run --rm -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.6.118:8090 -x xml_report.xml -r reports/zap-report.html'
             }

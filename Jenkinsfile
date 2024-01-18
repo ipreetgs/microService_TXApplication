@@ -127,7 +127,7 @@ pipeline {
     	stage('Scan Docker Image') {
             steps {
                 // Scan Docker image
-                sh "trivy image --ignore-unfixed --vuln-type os,library --format template --template table -o reports/docker-image-scan.html --timeout 30m tx-blog-app-main-flask-app:latest"
+                sh "trivy image --vuln-type os,library --format template --template "@html.tpl" -o reports/docker-image-scan.html --timeout 30m tx-blog-app-main-flask-app:latest"
 		    publishHTML target: [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,

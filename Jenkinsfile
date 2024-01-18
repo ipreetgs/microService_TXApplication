@@ -111,7 +111,7 @@ pipeline {
                               mimeType: 'text/html'
                     
                     // Pause and wait for manual approval
-                    input(id:'Proceed1', message: 'Promote build?',parameters:[[$class:'BooleanParameterDefinition', defaultValue: true, name: 'Please approve the deployment in your email client.', submitter: 'ipreetgs@gmail.com')
+                    input(id:'Proceed1', message: 'Promote build?',parameters:[[$class:'BooleanParameterDefinition', defaultValue: true, name: 'Please approve the deployment in your email client.', submitter: 'ipreetgs@gmail.com']])
                 }
             }
         }

@@ -92,22 +92,31 @@ pipeline {
                 }
             }
         }
-	stage('Manual Approval') {
-            steps {
-                script {
-                    // Pause and wait for manual approval
-                    // input(message: 'Do you want to proceed with the deploymwnt?', submitter: 'ipreetgs@gmail.com', parameters: [boolean(name: 'APPROVE', defaultValue: false, description: 'Approve deployment?')])
-		    def userInput = input(message: 'Do you want to proceed with the deployment?', submitter: 'ipreetgs@gmail.com', parameters: [
-                        [$class: 'BooleanParameterDefinition', name: 'APPROVE', defaultValue: false, description: 'Approve deployment?']
-                    ])
-                    // Check the approval status
-                    if (params.APPROVE) {
-                        echo 'Deployment approved. Proceeding to the next stage...'
-                    } else {
-                        error 'Deployment rejected. Stopping the pipeline.'
-                    }
-                }
-            }
+	// stage('Manual Approval') {
+ //            steps {
+ //                script {
+ //                    // Pause and wait for manual approval
+ //                    // input(message: 'Do you want to proceed with the deploymwnt?', submitter: 'ipreetgs@gmail.com', parameters: [boolean(name: 'APPROVE', defaultValue: false, description: 'Approve deployment?')])
+	// 	       def userInput = input(message: 'Do you want to proceed with the deployment?', submitter: 'ipreetgs@gmail.com', parameters: [
+ //                        [$class: 'BooleanParameterDefinition', name: 'APPROVE', defaultValue: false, description: 'Approve deployment?']
+ //                    ])
+ //                    // Check the approval status
+ //                    if (params.APPROVE) {
+ //                        echo 'Deployment approved. Proceeding to the next stage...'
+ //                    } else {
+ //                        error 'Deployment rejected. Stopping the pipeline.'
+ //                    }
+ //                }
+ //            }
+ //        }
+	stage('Manual Approval'){
+                steps{              
+                    script {
+                        timeout(time: 10, unit: 'MINUTES'){
+                            input ('Do you want to proceed with Deployment?')
+                        }
+                    }        
+                } 
         }
         stage('Deployment') {
             steps {

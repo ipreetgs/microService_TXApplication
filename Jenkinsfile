@@ -92,31 +92,28 @@ pipeline {
                 }
             }
         }
-	// stage('Manual Approval') {
- //            steps {
- //                script {
- //                    // Pause and wait for manual approval
- //                    // input(message: 'Do you want to proceed with the deploymwnt?', submitter: 'ipreetgs@gmail.com', parameters: [boolean(name: 'APPROVE', defaultValue: false, description: 'Approve deployment?')])
-	// 	       def userInput = input(message: 'Do you want to proceed with the deployment?', submitter: 'ipreetgs@gmail.com', parameters: [
- //                        [$class: 'BooleanParameterDefinition', name: 'APPROVE', defaultValue: false, description: 'Approve deployment?']
- //                    ])
- //                    // Check the approval status
- //                    if (params.APPROVE) {
- //                        echo 'Deployment approved. Proceeding to the next stage...'
- //                    } else {
- //                        error 'Deployment rejected. Stopping the pipeline.'
- //                    }
- //                }
- //            }
+	// stage('Manual Approval for deployment'){
+ //                steps{              
+ //                    script {
+ //                        timeout(time: 10, unit: 'MINUTES'){
+ //                            input ('Do you want to proceed with Deployment?')
+ //                        }
+ //                    }        
+ //                } 
  //        }
-	stage('Manual Approval'){
-                steps{              
-                    script {
-                        timeout(time: 10, unit: 'MINUTES'){
-                            input ('Do you want to proceed with Deployment?')
-                        }
-                    }        
-                } 
+	stage('Manual Approval2') {
+            steps {
+                script {
+                    // Send email for manual approval
+                    emailext subject: 'Manual Approval Required',
+                              body: 'Please approve the deployment by clicking on the following link: ${BUILD_URL}input',
+                              to: 'ipreetgs@gmail.com',
+                              mimeType: 'text/html'
+                    
+                    // Pause and wait for manual approval
+                    input(id:'Proceed1', message: 'Promote build?',parameters:[[$class:'BooleanParameterDefinition', defaultValue: true, name: 'Please approve the deployment in your email client.', submitter: 'ipreetgs@gmail.com')
+                }
+            }
         }
         stage('Deployment') {
             steps {

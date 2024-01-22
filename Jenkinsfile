@@ -190,6 +190,7 @@ pipeline {
 	stage('OWSP ZAP VAPT') {
             steps {
                 sh 'docker run --rm -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.6.118:8090 -x xml_report.xml -r zap-report.html'
+		sh 'echo Scan Done'
             }
         }
 

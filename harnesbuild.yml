@@ -1,6 +1,6 @@
 pipeline:
-  name: Final_TX_blog_pipeline
-  identifier: Final_TX_blog_pipeline
+  name: final
+  identifier: final
   projectIdentifier: DemoTx
   orgIdentifier: default
   tags: {}
@@ -12,15 +12,15 @@ pipeline:
         build: <+input>
   stages:
     - stage:
-        name: Docker_Build
-        identifier: Docker_Build
+        name: clone repo
+        identifier: clone_repo
         description: ""
         type: CI
         spec:
           cloneCodebase: true
           platform:
             os: Linux
-            arch: Arm64
+            arch: Amd64
           runtime:
             type: Docker
             spec: {}
@@ -28,33 +28,10 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: build image
-                  identifier: build_image
+                  name: build img
+                  identifier: build_img
                   spec:
                     shell: Sh
                     command: docker build -t mailapp Dockerfile-main-app
-                  description: building docker image
         delegateSelectors:
-          - linuxdocker-delegate
-    - stage:
-        name: deploy
-        identifier: deploy
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: true
-          platform:
-            os: Linux
-            arch: Arm64
-          runtime:
-            type: Docker
-            spec: {}
-          execution:
-            steps:
-              - step:
-                  type: Run
-                  name: run deploy
-                  identifier: run_deploy
-                  spec:
-                    shell: Sh
-                    command: docker run -it -p 8090:8090 mailapp
+          - linux-docker-delegate

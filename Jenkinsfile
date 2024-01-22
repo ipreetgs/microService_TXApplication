@@ -199,7 +199,7 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: 'reports',
+                    reportDir: '.',
                     reportFiles: 'zap-report.html',
                     reportName: 'ZAP Report',
                     reportTitles: 'ZAP Report'

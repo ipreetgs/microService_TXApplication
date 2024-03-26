@@ -50,7 +50,7 @@ pipeline:
                     shell: Sh
                     command: docker run -d -p 8090:8090 mailapp
         delegateSelectors:
-          - linux-docker-delegate
+          - docker-delegate
     - stage:
         name: deploy
         identifier: deploy

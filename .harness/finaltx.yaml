@@ -1,5 +1,5 @@
 pipeline:
-  name: final-tx
+  name: Webapp_test
   identifier: finaltx
   projectIdentifier: DemoTx
   orgIdentifier: default

@@ -49,8 +49,6 @@ pipeline:
                   spec:
                     shell: Sh
                     command: docker run -d -p 8090:8090 mailapp
-        delegateSelectors:
-          - docker-delegate
     - stage:
         name: deploy
         identifier: deploy

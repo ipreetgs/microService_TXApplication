@@ -49,6 +49,9 @@ pipeline:
                   spec:
                     shell: Sh
                     command: docker run -d -p 8090:8090 mailapp
+        delegateSelectors:
+          - linux-delegate-tx-project
+          - linux-porj
     - stage:
         name: deploy
         identifier: deploy
@@ -72,4 +75,5 @@ pipeline:
                     shell: Sh
                     command: ls
         delegateSelectors:
-          - linux-docker-delegate
+          - linux-delegate-tx-project
+          - linux-porj
